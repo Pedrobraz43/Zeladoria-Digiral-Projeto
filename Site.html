@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Zeladoria Digital - ODS 11</title>
+  <style>
+    body { font-family: Arial, sans-serif; background-color: #f4f6f8; margin: 0; padding: 20px; display: flex; justify-content: center; }
+    .card { background: white; padding: 25px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); width: 100%; max-width: 450px; }
+    h2 { color: #1b5e20; margin-top: 0; font-size: 20px; text-align: center; }
+    p { font-size: 13px; color: #555; text-align: center; margin-bottom: 20px; }
+    label { font-weight: bold; font-size: 13px; display: block; margin-top: 12px; color: #333; }
+    select, input, textarea, button { width: 100%; padding: 10px; margin-top: 6px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+    button { background-color: #2e7d32; color: white; border: none; font-weight: bold; cursor: pointer; margin-top: 20px; }
+    button:hover { background-color: #1b5e20; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>Zeladoria Digital</h2>
+    <p>Reporte problemas urbanos do seu bairro (ODS 11)</p>
+    <form onsubmit="event.preventDefault(); alert('Chamado registrado com sucesso! Protocolo: #2026-0891');">
+      <label for="tipo">Tipo de Problema:</label>
+      <select id="tipo" required>
+        <option value="">Selecione...</option>
+        <option value="iluminacao">Iluminação Pública (Lâmpada queimada)</option>
+        <option value="buraco">Via Pública (Buraco na pista/calçada)</option>
+        <option value="entulho">Descarte Irregular de Lixo/Entulho</option>
+        <option value="vazamento">Vazamento de Água/Esgoto</option>
+      </select>
+
+      <label for="bairro">Bairro e Logradouro:</label>
+      <input type="text" id="bairro" placeholder="Ex: Rua A, Bairro Central" required>
+
+      <label for="foto">Foto do Local:</label>
+      <input type="file" id="foto" accept="image/*">
+
+      <label for="obs">Descrição Detalhada:</label>
+      <textarea id="obs" rows="3" placeholder="Descreva brevemente a situação..."></textarea>
+
+      <button type="submit">Enviar Chamado</button>
+    </form>
+  </div>
+</body>
+</html>

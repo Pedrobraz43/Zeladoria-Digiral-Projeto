@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZELADORIA DIGITAL INTEGRADA | PROJETO IMPLEMENTADO</title>
+  <style>
+    :root {
+      --primary: #10b981;
+      --primary-dark: #059669;
+      --bg: #0f172a;
+      --card-bg: #ffffff;
+      --border: #e2e8f0;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --warn: #f59e0b;
+      --info: #0284c7;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    body {
+      background: radial-gradient(circle at top, #1e293b, var(--bg));
+      color: var(--text);
+      min-height: 100vh;
+      padding: 24px 16px;
+    }
+
+    .header-bar {
+      max-width: 1100px;
+      margin: 0 auto 24px auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: white;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 16px;
+    }
+
+    .badge {
+      background: rgba(16, 185, 129, 0.2);
+      color: #34d399;
+      border: 1px solid rgba(52, 211, 153, 0.4);
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    /* Layout Integrado em Duas Colunas */
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 860px) {
+      .dashboard-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 14px;
+      padding: 24px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2);
+    }
+
+    .card h3 {
+      font-size: 18px;
+      margin-bottom: 6px;
+      color: var(--text);
+    }
+
+    .card p.sub {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    /* Estilos do Formulário */
+    .form-group {
+      margin-bottom: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    label {
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    select, input[type="text"], textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      font-size: 14px;
+      outline: none;
+      transition: all 0.2s;
+    }
+
+    select:focus, input[type="text"]:focus, textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 70px;
+    }
+
+    .btn-send {
+      width: 100%;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.3);
+      transition: transform 0.1s;
+    }
+
+    .btn-send:hover {
+      transform: translateY(-1px);
+    }
+
+    /* Estilos do Painel de Recepção */
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .metric-box {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px;
+      text-align: center;
+    }
+
+    .metric-box span {
+      font-size: 11px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+
+    .metric-box strong {
+      display: block;
+      font-size: 20px;
+      color: var(--text);
+      margin-top: 2px;
+    }
+
+    .table-container {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      text-align: left;
+    }
+
+    th {
+      background: #f8fafc;
+      padding: 10px 8px;
+      color: var(--text-muted);
+      font-size: 11px;
+      text-transform: uppercase;
+      border-bottom: 2px solid var(--border);
+    }
+
+    td {
+      padding: 12px 8px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+    }
+
+    /* Badges de Status */
+    .status-badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .status-aberto { background: #fef3c7; color: #b45309; }
+    .status-reparo { background: #e0f2fe; color: #0369a1; }
+    .status-concluido { background: #dcfce7; color: #15803d; }
+
+    .tag-protocol {
+      font-family: monospace;
+      font-weight: bold;
+      color: #334155;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header-bar">
+    <div>
+      <h2>Zeladoria Digital Integrada</h2>
+      <p style="font-size: 13px; color: #94a3b8;">Plataforma de Interação Cidadão-Prefeitura (Smart Cities)</p>
+    </div>
+    <div class="badge">ODS 11 • Metas Urbanas</div>
+  </div>
+
+  <div class="dashboard-grid">
+
+    <!-- 1. PAINEL DE ENVIO (CIDADÃO) -->
+    <div class="card">
+      <h3>📱 Enviar Nova Ocorrência</h3>
+      <p class="sub">Interface do morador para reporte imediato de incidentes.</p>
+
+      <form id="ticketForm">
+        <div class="form-group">
+          <label for="tipo">Categoria do Problema:</label>
+          <select id="tipo" required>
+            <option value="" disabled selected>Escolha o incidente...</option>
+            <option value="💡 Iluminação Pública">Iluminação Pública (Luz apagada)</option>
+            <option value="🚧 Via e Pavimentação">Via e Pavimentação (Buraco/Asfalto)</option>
+            <option value="🗑️ Coleta e Entulho">Coleta e Entulho (Lixo acumulado)</option>
+            <option value="💧 Vazamento/Esgoto">Vazamento / Água e Esgoto</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="local">Localização (Rua / Bairro):</label>
+          <input type="text" id="local" placeholder="Ex: Rua Central, nº 120 - Centro" required>
+        </div>
+
+        <div class="form-group">
+          <label for="descricao">Observações:</label>
+          <textarea id="descricao" placeholder="Diga um ponto de referência ou detalhes..."></textarea>
+        </div>
+
+        <button type="submit" class="btn-send">📤 Transmitir Chamado</button>
+      </form>
+    </div>
+
+    <!-- 2. PAINEL DE RECEPÇÃO E GESTÃO (PREFEITURA) -->
+    <div class="card">
+      <h3>🖥️ Fila de Recepção (Central Municipal)</h3>
+      <p class="sub">Chamados recebidos em tempo real para despacho das equipes.</p>
+
+      <div class="metrics">
+        <div class="metric-box">
+          <span>Total Recebido</span>
+          <strong id="countTotal">3</strong>
+        </div>
+        <div class="metric-box">
+          <span>Em Aberto</span>
+          <strong id="countAberto" style="color: var(--warn);">2</strong>
+        </div>
+        <div class="metric-box">
+          <span>Resolvidos</span>
+          <strong id="countConcluido" style="color: var(--primary);">1</strong>
+        </div>
+      </div>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Protocolo</th>
+              <th>Incidente</th>
+              <th>Local</th>
+              <th>Status (Clique p/ alterar)</th>
+            </tr>
+          </thead>
+          <tbody id="chamadosBody">
+            <tr>
+              <td class="tag-protocol">#ZD-3012</td>
+              <td>💡 Iluminação Pública</td>
+              <td>Av. Getúlio Vargas, 45</td>
+              <td><span class="status-badge status-aberto" onclick="mudarStatus(this)">Aberto</span></td>
+            </tr>
+            <tr>
+              <td class="tag-protocol">#ZD-3011</td>
+              <td>🚧 Via e Pavimentação</td>
+              <td>Rua das Flores, 88</td>
+              <td><span class="status-badge status-reparo" onclick="mudarStatus(this)">Em Reparo</span></td>
+            </tr>
+            <tr>
+              <td class="tag-protocol">#ZD-3010</td>
+              <td>🗑️ Coleta e Entulho</td>
+              <td>Praça do Bairro Sul</td>
+              <td><span class="status-badge status-concluido" onclick="mudarStatus(this)">Concluído</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const form = document.getElementById('ticketForm');
+    const tbody = document.getElementById('chamadosBody');
+    const countTotal = document.getElementById('countTotal');
+    const countAberto = document.getElementById('countAberto');
+    const countConcluido = document.getElementById('countConcluido');
+
+    // Ao clicar em 'Transmitir Chamado', insere na tabela da prefeitura na hora
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const tipo = document.getElementById('tipo').value;
+      const local = document.getElementById('local').value;
+      const protocolo = '#ZD-' + Math.floor(1000 + Math.random() * 9000);
+
+      // Nova linha na tabela
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td class="tag-protocol">${protocolo}</td>
+        <td>${tipo}</td>
+        <td>${local}</td>
+        <td><span class="status-badge status-aberto" onclick="mudarStatus(this)">Aberto</span></td>
+      `;
+
+      tbody.prepend(tr);
+      atualizarContadores();
+      form.reset();
+    });
+
+    // Alterna o status ao clicar: Aberto -> Em Reparo -> Concluído
+    function mudarStatus(elemento) {
+      if (elemento.classList.contains('status-aberto')) {
+        elemento.className = 'status-badge status-reparo';
+        elemento.textContent = 'Em Reparo';
+      } else if (elemento.classList.contains('status-reparo')) {
+        elemento.className = 'status-badge status-concluido';
+        elemento.textContent = 'Concluído';
+      } else {
+        elemento.className = 'status-badge status-aberto';
+        elemento.textContent = 'Aberto';
+      }
+      atualizarContadores();
+    }
+
+    function atualizarContadores() {
+      const todos = document.querySelectorAll('#chamadosBody tr').length;
+      const abertos = document.querySelectorAll('.status-aberto, .status-reparo').length;
+      const concluidos = document.querySelectorAll('.status-concluido').length;
+
+      countTotal.textContent = todos;
+      countAberto.textContent = abertos;
+      countConcluido.textContent = concluidos;
+    }
+  </script>
+
+</body>
+</html>
